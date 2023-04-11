@@ -10,7 +10,12 @@ export const FooterContainer = styled(Navbar)`
   padding: 10px 20px;
 `;
 
-export const FooterText = styled.p`
+export const FooterText = styled.a`
   font-size: 18px;
   color: white;
+
+  &:hover,
+  &:focus {
+    color: #aaaaaa;
+  }
 `;

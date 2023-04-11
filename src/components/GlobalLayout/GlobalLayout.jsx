@@ -22,7 +22,12 @@ const GlobalLayout = () => {
       </main>
       <footer>
         <FooterContainer bg="dark" expand="lg">
-          <FooterText>&#169; 2023 Milosska - All rights reserved</FooterText>
+          <FooterText
+            href="https://github.com/Milosska/goit-react-hw-08-phonebook"
+            target="blank"
+          >
+            &#169; 2023 Milosska - All rights reserved
+          </FooterText>
         </FooterContainer>
       </footer>
     </>

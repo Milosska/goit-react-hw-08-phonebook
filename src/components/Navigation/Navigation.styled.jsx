@@ -7,9 +7,9 @@ import Navbar from 'react-bootstrap/Navbar';
 export const AppBar = styled(Navbar)`
   padding: 10px 20px 0;
 
-  & a.active {
-    color: white;
-    text-decoration: underline;
+  & a:hover,
+  & a:focus {
+    color: #c0bdbd;
   }
 `;
 
@@ -44,5 +44,10 @@ export const StyledLink = styled(LinkContainer)`
 
   :nth-child(4) {
     margin-left: auto;
+  }
+
+  ${AppBar} &.active {
+    color: #c0bdbd;
+    text-decoration: underline;
   }
 `;

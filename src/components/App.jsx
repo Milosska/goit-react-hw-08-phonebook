@@ -4,9 +4,7 @@ import { GlobalStyles } from './GlobalStyles';
 import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-const GlobalLayout = lazy(() =>
-  import('../components/GlobalLayout/GlobalLayout')
-);
+import GlobalLayout from '../components/GlobalLayout/GlobalLayout';
 const Homepage = lazy(() => import('../pages/Homepage/Homepage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));

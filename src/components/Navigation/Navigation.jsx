@@ -1,23 +1,36 @@
-import { NavLink } from 'react-router-dom';
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
+import { LinkContainer } from 'react-router-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import {
+  AppBar,
+  LogoIcon,
+  LogoText,
+  NavContainer,
+  StyledLink,
+} from './Navigation.styled';
 
 export const Navigation = () => {
   return (
-    // <Navbar bg="light" expand="lg">
-    //   <Container>
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
-          <NavLink to="/login">Log In</NavLink>
-        </li>
-      </ul>
-    </nav>
-    //   </Container>
-    // </Navbar>
+    <AppBar bg="dark" expand="lg">
+      <NavContainer className="justify-content-center">
+        <LinkContainer to="/">
+          <LogoText>
+            <LogoIcon />
+            PhoneBook
+          </LogoText>
+        </LinkContainer>
+        <StyledLink to="/">
+          <Nav.Link>Home</Nav.Link>
+        </StyledLink>
+        <StyledLink to="/contacts">
+          <Nav.Link>Contacts</Nav.Link>
+        </StyledLink>
+        <StyledLink to="/login">
+          <Nav.Link>Log In</Nav.Link>
+        </StyledLink>
+        <StyledLink to="/register">
+          <Nav.Link>Sign Up</Nav.Link>
+        </StyledLink>
+      </NavContainer>
+    </AppBar>
   );
 };

@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { signUp } from 'redux/operations';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +12,8 @@ import {
 } from './RegistrationPage.styled';
 
 const RegistrationPage = () => {
+  const dispatch = useDispatch();
+
   const RegisterSchema = object().shape({
     name: string()
       .matches(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/, {
@@ -24,8 +28,11 @@ const RegistrationPage = () => {
       })
       .required('Required'),
     password: string()
-      .min(5, 'The password is too short!')
-      .max(15, 'The password is too long!')
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/, {
+        message:
+          'Password should contain minimum seven characters, at least one letter and one number',
+        excludeEmptyString: true,
+      })
       .required('Required'),
   });
 
@@ -37,7 +44,7 @@ const RegistrationPage = () => {
     },
     validationSchema: RegisterSchema,
     onSubmit: values => {
-      console.log(values);
+      dispatch(signUp(values));
     },
   });
 
@@ -92,7 +99,7 @@ const RegistrationPage = () => {
           </Form.Control.Feedback>
         </Label>
         <StyledBtn variant="dark" type="submit">
-          Log In
+          Sign Up
         </StyledBtn>
       </FormContainer>
     </AuthLayout>

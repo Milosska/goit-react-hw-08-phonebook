@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { logIn } from 'redux/operations';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import Form from 'react-bootstrap/Form';
@@ -5,6 +7,8 @@ import { AuthLayout } from 'components/AuthLayout/AuthLayout';
 import { FormContainer, StyledBtn, Label, Input } from './LoginPage.styled';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+
   const LoginSchema = object().shape({
     email: string()
       .matches(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, {
@@ -22,7 +26,7 @@ const LoginPage = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: values => {
-      console.log(values);
+      dispatch(logIn(values));
     },
   });
 

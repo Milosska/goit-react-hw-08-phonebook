@@ -42,12 +42,14 @@ export const StyledLink = styled(LinkContainer)`
   font-size: 20px;
   color: white;
 
-  :nth-child(4) {
-    margin-left: auto;
-  }
-
   ${AppBar} &.active {
     color: #c0bdbd;
     text-decoration: underline;
   }
+`;
+
+export const AuthThumb = styled.div`
+  display: flex;
+  align-items: baseline;
+  margin-left: auto;
 `;

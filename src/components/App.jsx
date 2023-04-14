@@ -1,14 +1,17 @@
 import 'modern-normalize';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GlobalStyles } from './GlobalStyles';
-import { lazy } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshUser } from 'redux/operations';
 import {
-  selectIsLoggedIn,
+  // selectIsLoggedIn,
   selectIsUserLoading,
   selectUserError,
 } from 'redux/selectors';
+import { PrivateRoute } from './Routes/PrivateRoute';
+import { RestrictedRoute } from './Routes/RestrictedRoute';
 import { Loading } from './Loading/Loading';
 import { ErrorMessage } from './ErrorMessage/ErrorMessage';
 
@@ -21,28 +24,38 @@ const RegistrationPage = lazy(() =>
 );
 
 export const App = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  // const isLoggedIn = useSelector(selectIsLoggedIn);
   const isUserLoading = useSelector(selectIsUserLoading);
   const isUserError = useSelector(selectUserError);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   return (
     <>
       <GlobalStyles />
-      <Routes>
-        <Route path="/" element={<GlobalLayout />}>
-          <Route index element={<Homepage />} />
-          {isLoggedIn ? (
-            <Route path="contacts" element={<ContactsPage />} />
-          ) : (
-            <>
-              <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegistrationPage />} />
-            </>
-          )}
-
-          <Route path="*" element={<Homepage />} />
-        </Route>
-      </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/" element={<GlobalLayout />}>
+            <Route index element={<Homepage />} />
+            <Route
+              path="contacts"
+              element={<PrivateRoute component={<ContactsPage />} />}
+            />
+            <Route
+              path="login"
+              element={<RestrictedRoute component={<LoginPage />} />}
+            />
+            <Route
+              path="register"
+              element={<RestrictedRoute component={<RegistrationPage />} />}
+            />
+            <Route path="*" element={<Homepage />} />
+          </Route>
+        </Routes>
+      </Suspense>
       {isUserLoading && <Loading />}
       {isUserError && <ErrorMessage message={isUserError} />}
     </>

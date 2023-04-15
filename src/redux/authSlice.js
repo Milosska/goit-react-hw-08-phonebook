@@ -7,6 +7,7 @@ const authSlice = createSlice({
     user: { name: '', email: '' },
     token: null,
     isLoggedIn: false,
+    isRefreshingUser: false,
     isLoading: false,
     error: null,
   },
@@ -24,6 +25,17 @@ const authSlice = createSlice({
         state.user.email = action.payload.email;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.isRefreshingUser = false;
+      })
+      .addCase(refreshUser.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+        state.isRefreshingUser = true;
+      })
+      .addCase(refreshUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        state.isRefreshingUser = false;
       })
       .addMatcher(
         isAnyOf(signUp.pending, logIn.pending, logOut.pending),

@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from 'redux/selectors';
+import { selectIsLoggedIn, selectIsRefreshingUser } from 'redux/selectors';
 import { LinkContainer } from 'react-router-bootstrap';
 import Nav from 'react-bootstrap/Nav';
+import { AddContactMenu } from 'components/AddContactMenu/AddContactMenu';
 import {
   AppBar,
   LogoIcon,
@@ -13,6 +14,7 @@ import {
 
 export const Navigation = () => {
   const isLoggenIn = useSelector(selectIsLoggedIn);
+  const isRefreshingUser = useSelector(selectIsRefreshingUser);
 
   return (
     <AppBar bg="dark" expand="lg">
@@ -26,10 +28,13 @@ export const Navigation = () => {
         <StyledLink to="/">
           <Nav.Link>Home</Nav.Link>
         </StyledLink>
-        {isLoggenIn ? (
-          <StyledLink to="/contacts">
-            <Nav.Link>Contacts</Nav.Link>
-          </StyledLink>
+        {isLoggenIn || isRefreshingUser ? (
+          <>
+            <StyledLink to="/contacts">
+              <Nav.Link>Contacts</Nav.Link>
+            </StyledLink>
+            <AddContactMenu />
+          </>
         ) : (
           <AuthThumb>
             <StyledLink to="/login">

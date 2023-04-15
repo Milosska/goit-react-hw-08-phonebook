@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts } from 'redux/selectors';
+import { addContact, editContact } from 'redux/operations';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import {
   StyledButton,
   FormContainer,
@@ -13,9 +15,29 @@ import {
   SubmitButton,
 } from './AddContactForm.styled';
 
-export const AddContactForm = () => {
+export const AddContactForm = ({
+  type = 'user',
+  contact = {
+    name: '',
+    number: '',
+  },
+}) => {
   const [show, setShow] = useState(false);
+  const [isSameMessage, setIsSameMessage] = useState(null);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
+
+  const handleCheck = checkName => {
+    const check = contacts.filter(
+      contact => contact.name.toLowerCase() === checkName.toLowerCase()
+    );
+    if (check.length) {
+      setIsSameMessage(`${checkName} is already in contacts`);
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   const FormSchema = object({
     name: string()
@@ -39,32 +61,56 @@ export const AddContactForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      number: '',
+      name: contact.name,
+      number: contact.number,
     },
     validationSchema: FormSchema,
     onSubmit: (values, { resetForm }) => {
-      dispatch(addContact(values));
-      resetForm({
-        name: '',
-        number: '',
-      });
-      setShow(false);
+      if (type === 'user' && handleCheck(values.name) === false) {
+        return;
+      } else {
+        setIsSameMessage(null);
+        const data = contact.id ? { ...values, id: contact.id } : values;
+
+        type === 'user'
+          ? dispatch(addContact(data))
+          : dispatch(editContact(data));
+        resetForm({
+          name: '',
+          number: '',
+        });
+        setShow(false);
+      }
     },
   });
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setIsSameMessage(null);
+    setShow(true);
+  };
+  const handleClose = () => {
+    formik.resetForm({
+      name: '',
+      number: '',
+    });
+    setShow(false);
+  };
 
   return (
     <>
-      <StyledButton variant="light" onClick={handleShow}>
-        Add contact
+      <StyledButton
+        variant={type === 'user' ? 'light' : 'dark'}
+        type={type}
+        onClick={handleShow}
+      >
+        {type === 'user' ? 'Add contact' : 'Edit'}
       </StyledButton>
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Add new contact</Modal.Title>
+          <Modal.Title>
+            {type === 'user' ? 'Add new contact' : 'Edit contact'}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <FormContainer onSubmit={formik.handleSubmit}>
@@ -100,9 +146,10 @@ export const AddContactForm = () => {
               </Form.Control.Feedback>
             </Label>
             <SubmitButton variant="dark" type="submit">
-              Add contact
+              {type === 'user' ? 'Add contact' : 'Edit contact'}
             </SubmitButton>
           </FormContainer>
+          {isSameMessage && <ErrorMessage message={isSameMessage} />}
         </Modal.Body>
       </Modal>
     </>

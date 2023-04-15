@@ -9,7 +9,7 @@ export const AddContactMenu = () => {
   return (
     <Container>
       <p>Total contacts: {contacts.length}</p>
-      <AddContactForm />
+      <AddContactForm type="user" />
     </Container>
   );
 };

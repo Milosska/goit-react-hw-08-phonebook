@@ -4,8 +4,10 @@ import Form from 'react-bootstrap/Form';
 
 export const StyledButton = styled(Button)`
   padding: 5px 10px;
-  font-weight: 500;
-  font-size: 16px;
+  width: ${props => props.type === 'contact' && '120px'};
+  margin-top: ${props => (props.type === 'user' ? '0' : '15px')};
+  font-weight: ${props => (props.type === 'user' ? 500 : 400)};
+  font-size: ${props => (props.type === 'user' ? '16px' : '18px')};
 `;
 
 export const FormContainer = styled(Form)`

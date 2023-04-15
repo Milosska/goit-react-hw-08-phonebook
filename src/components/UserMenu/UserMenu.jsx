@@ -29,7 +29,7 @@ export const UserMenu = () => {
   return (
     <Container>
       <WellcomePhrase>Wellcome to Phonebook!</WellcomePhrase>
-      <p>We've been expecting you.</p>
+      <p>We've been waiting for you.</p>
       <PictureThumb>
         <Picture src={setPicture()} alt="User Phone" />
       </PictureThumb>

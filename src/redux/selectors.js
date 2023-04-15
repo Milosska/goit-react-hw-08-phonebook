@@ -8,6 +8,7 @@ export const selectUserError = state => state.auth.error;
 export const selectIsRefreshingUser = state => state.auth.isRefreshingUser;
 
 export const selectContacts = state => state.contacts.items;
+export const selectContactsError = state => state.contacts.error;
 export const selectIsLoading = state => state.contacts.isLoading;
 
 export const selectFilter = state => state.filter;

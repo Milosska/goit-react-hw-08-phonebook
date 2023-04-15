@@ -29,7 +29,7 @@ img {
   height: auto;
 }
 ul {
-  list-style: inside;
+  list-style: none;
 }
 a {
   text-decoration: none;

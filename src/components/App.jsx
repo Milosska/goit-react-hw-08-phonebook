@@ -9,6 +9,8 @@ import {
   selectIsUserLoading,
   selectUserError,
   selectIsRefreshingUser,
+  selectContactsError,
+  selectIsLoading,
 } from 'redux/selectors';
 import { PrivateRoute } from './Routes/PrivateRoute';
 import { RestrictedRoute } from './Routes/RestrictedRoute';
@@ -27,6 +29,8 @@ export const App = () => {
   const isRefreshingUser = useSelector(selectIsRefreshingUser);
   const isUserLoading = useSelector(selectIsUserLoading);
   const isUserError = useSelector(selectUserError);
+  const isContactsError = useSelector(selectContactsError);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,7 +65,9 @@ export const App = () => {
         )}
       </Suspense>
       {isUserLoading && <Loading />}
+      {isLoading && <Loading />}
       {isUserError && <ErrorMessage message={isUserError} />}
+      {isContactsError && <ErrorMessage message={isUserError} />}
     </>
   );
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { ListElem } from './ContactListElem.styled';
 import { ContactMenu } from '../ContactMenu/ContactMenu';
 import { FaUserCircle } from 'react-icons/fa';
@@ -17,4 +18,11 @@ export const ContactListElem = ({ contact }) => {
       </StyledCard>
     </ListElem>
   );
+};
+
+ContactListElem.propTypes = {
+  contact: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
 };

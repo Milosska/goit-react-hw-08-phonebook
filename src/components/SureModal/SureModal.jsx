@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 import Button from 'react-bootstrap/Button';
@@ -26,17 +27,21 @@ export const SureModal = ({ contactId }) => {
         <Modal.Body>Are you sure?</Modal.Body>
         <ModalFooter>
           <Button
-            variant="dark"
+            variant="danger"
             type="button"
             onClick={() => handleDelete(contactId)}
           >
             Yes
           </Button>
-          <Button variant="danger" type="button" onClick={handleClose}>
+          <Button variant="dark" type="button" onClick={handleClose}>
             No
           </Button>
         </ModalFooter>
       </ModalContainer>
     </>
   );
+};
+
+SureModal.propTypes = {
+  contactId: PropTypes.string.isRequired,
 };

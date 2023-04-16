@@ -4,7 +4,9 @@ import { fetchContacts } from '../../redux/operations';
 import Col from 'react-bootstrap/Col';
 import { UserMenu } from '../../components/UserMenu/UserMenu';
 import { ContactList } from 'components/ContactList/ContactList';
-import { Layout, BigColumn } from './ContactsPage.styled';
+import { Filter } from 'components/Filter/Filter';
+import { AddContactForm } from 'components/AddContactForm/AddContactForm';
+import { Layout, BigColumn, FilterThumb } from './ContactsPage.styled';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,10 @@ const ContactsPage = () => {
         <UserMenu />
       </Col>
       <BigColumn xs={9}>
+        <FilterThumb>
+          <Filter />
+          <AddContactForm type="user" />
+        </FilterThumb>
         <ContactList />
       </BigColumn>
     </Layout>

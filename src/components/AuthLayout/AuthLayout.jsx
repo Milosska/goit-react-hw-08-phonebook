@@ -1,4 +1,5 @@
 import Container from 'react-bootstrap/Container';
+import PropTypes from 'prop-types';
 import { Layout, BigColumn, SmallColumn } from './AuthLayout.styled';
 
 export const AuthLayout = ({ children, layout = 'login' }) => {
@@ -10,4 +11,8 @@ export const AuthLayout = ({ children, layout = 'login' }) => {
       </Layout>
     </Container>
   );
+};
+
+AuthLayout.propTypes = {
+  layout: PropTypes.string,
 };

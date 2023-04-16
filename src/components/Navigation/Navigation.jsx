@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn, selectIsRefreshingUser } from 'redux/selectors';
+import {
+  selectIsLoggedIn,
+  selectIsRefreshingUser,
+  selectContacts,
+} from 'redux/selectors';
 import { LinkContainer } from 'react-router-bootstrap';
 import Nav from 'react-bootstrap/Nav';
-import { AddContactMenu } from 'components/AddContactMenu/AddContactMenu';
 import {
   AppBar,
   LogoIcon,
@@ -10,11 +13,13 @@ import {
   NavContainer,
   StyledLink,
   AuthThumb,
+  TotalContactsText,
 } from './Navigation.styled';
 
 export const Navigation = () => {
   const isLoggenIn = useSelector(selectIsLoggedIn);
   const isRefreshingUser = useSelector(selectIsRefreshingUser);
+  const contacts = useSelector(selectContacts);
 
   return (
     <AppBar bg="dark" expand="lg">
@@ -33,7 +38,9 @@ export const Navigation = () => {
             <StyledLink to="/contacts">
               <Nav.Link>Contacts</Nav.Link>
             </StyledLink>
-            <AddContactMenu />
+            <TotalContactsText>
+              Total contacts: {contacts.length}
+            </TotalContactsText>
           </>
         ) : (
           <AuthThumb>

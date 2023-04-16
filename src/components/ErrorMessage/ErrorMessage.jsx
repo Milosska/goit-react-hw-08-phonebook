@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert';
 import { AlertContainer } from './ErrorMessage.styled';
 
@@ -17,4 +18,8 @@ export const ErrorMessage = ({ message }) => {
       </AlertContainer>
     );
   }
+};
+
+ErrorMessage.propTypes = {
+  message: PropTypes.string.isRequired,
 };

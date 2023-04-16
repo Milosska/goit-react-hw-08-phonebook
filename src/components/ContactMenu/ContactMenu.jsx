@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { SureModal } from 'components/SureModal/SureModal';
 import { AddContactForm } from 'components/AddContactForm/AddContactForm';
@@ -47,4 +48,12 @@ export const ContactMenu = ({ contact }) => {
       </Container>
     </>
   );
+};
+
+ContactMenu.propTypes = {
+  contact: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
 };

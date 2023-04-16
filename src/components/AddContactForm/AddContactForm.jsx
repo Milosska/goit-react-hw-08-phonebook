@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { addContact, editContact } from 'redux/operations';
@@ -98,11 +99,7 @@ export const AddContactForm = ({
 
   return (
     <>
-      <StyledButton
-        variant={type === 'user' ? 'light' : 'dark'}
-        type={type}
-        onClick={handleShow}
-      >
+      <StyledButton variant="dark" type={type} onClick={handleShow}>
         {type === 'user' ? 'Add contact' : 'Edit'}
       </StyledButton>
 
@@ -154,4 +151,12 @@ export const AddContactForm = ({
       </Modal>
     </>
   );
+};
+
+AddContactForm.propTypes = {
+  type: PropTypes.string,
+  contact: PropTypes.shape({
+    name: PropTypes.string,
+    number: PropTypes.string,
+  }),
 };

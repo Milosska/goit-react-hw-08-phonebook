@@ -53,3 +53,10 @@ export const AuthThumb = styled.div`
   align-items: baseline;
   margin-left: auto;
 `;
+
+export const TotalContactsText = styled.p`
+  display: inline-block;
+  margin-left: auto;
+  font-size: 20px;
+  color: white;
+`;
